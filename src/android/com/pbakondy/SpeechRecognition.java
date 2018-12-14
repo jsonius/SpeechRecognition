@@ -268,6 +268,11 @@ public class SpeechRecognition extends CordovaPlugin {
 
     @Override
     public void onEndOfSpeech() {
+
+        spechStarted = false;
+        Log.i(LOG_TAG, "onEndOfSpeech");
+        speech.startListening(recognizerIntent);
+
     }
 
     @Override
