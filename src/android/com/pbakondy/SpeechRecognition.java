@@ -59,6 +59,8 @@ public class SpeechRecognition extends CordovaPlugin {
   private Context context;
   private View view;
   private SpeechRecognizer recognizer;
+  
+    boolean spechStarted = false;
 
   @Override
   public void initialize(CordovaInterface cordova, CordovaWebView webView) {
@@ -260,6 +262,7 @@ public class SpeechRecognition extends CordovaPlugin {
 
     @Override
     public void onBeginningOfSpeech() {
+        spechStarted = true;
     }
 
     @Override
@@ -280,6 +283,9 @@ public class SpeechRecognition extends CordovaPlugin {
       String errorMessage = getErrorText(errorCode);
       Log.d(LOG_TAG, "Error: " + errorMessage);
       callbackContext.error(errorMessage);
+      
+        if (!spechStarted)
+            speech.startListening(recognizerIntent);
     }
 
     @Override
