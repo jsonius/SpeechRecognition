@@ -273,7 +273,7 @@ public class SpeechRecognition extends CordovaPlugin {
     @Override
     public void onEndOfSpeech() {
         spechStarted = false;
-        speech.startListening(recognizerIntent);
+        recognizer.startListening(recognizerIntent);
     }
 
     @Override
@@ -282,7 +282,7 @@ public class SpeechRecognition extends CordovaPlugin {
       Log.d(LOG_TAG, "Error: " + errorMessage);
       callbackContext.error(errorMessage);     
         if (!spechStarted)
-            speech.startListening(recognizerIntent);
+            recognizer.startListening(recognizerIntent);
     }
 
     @Override
