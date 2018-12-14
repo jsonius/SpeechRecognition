@@ -14,7 +14,6 @@ import org.json.JSONException;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-
 import android.content.pm.PackageManager;
 
 import android.Manifest;
@@ -60,8 +59,6 @@ public class SpeechRecognition extends CordovaPlugin {
   private Context context;
   private View view;
   private SpeechRecognizer recognizer;
-  
-    boolean spechStarted = false;
 
   @Override
   public void initialize(CordovaInterface cordova, CordovaWebView webView) {
@@ -263,7 +260,6 @@ public class SpeechRecognition extends CordovaPlugin {
 
     @Override
     public void onBeginningOfSpeech() {
-        spechStarted = true;
     }
 
     @Override
@@ -272,18 +268,13 @@ public class SpeechRecognition extends CordovaPlugin {
 
     @Override
     public void onEndOfSpeech() {
-        spechStarted = false;
-      
-      recognizer.startListening(intent);
     }
 
     @Override
     public void onError(int errorCode) {
       String errorMessage = getErrorText(errorCode);
       Log.d(LOG_TAG, "Error: " + errorMessage);
-      callbackContext.error(errorMessage);     
-        if (!spechStarted)
-            recognizer.startListening(intent);
+      callbackContext.error(errorMessage);
     }
 
     @Override
